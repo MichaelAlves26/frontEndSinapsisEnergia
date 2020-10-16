@@ -1,0 +1,85 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Gerenciamento de subestacões</li>
+  </ol>
+</nav>
+<div class="container">
+  <div class="card list-car">
+    <h5 class="card-header">Lista de subestacões</h5>
+    <div class="card-body">
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Codigo</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Latitude</th>
+              <th scope="col">Longitude</th>
+              <th scope="col">REDE MT</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let subestacao of subestacoes">
+                
+                <td>{{subestacao.codigo}}</td>
+                <td>{{subestacao.nome}}</td>
+                <td>{{subestacao.latitude}}</td>
+                <td>{{subestacao.longitude}}</td>
+                <td>{{subestacao.redeMt}}</td>
+                
+              
+              <td>
+                <button type="button" class="btn btn-warning btn-sm" (click)="editSubestacao(subestacao)">Editar</button>
+                <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteSubestacao(subestacao)">Deletar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+
+  
+    <div *ngFor="let redeMt of subestacao.redeMt">
+      <b>{{redeMt.nomeRede}}</b>
+      <b>estou aqui</b>
+  
+    </div>
+  
+  <div class="card add-car">
+    <h5 class="card-header">Adicionar/Atualizar subestacao</h5>
+    <div class="card-body">
+        <form id="add-form" (ngSubmit)="f.form.valid && saveSubestacao(f)" #f="ngForm" novalidate>
+          <div class="form-group">
+              <label for="codigo">Codigo</label>
+              <input type="text" [(ngModel)]="subestacao.codigo" id="codigo" name="codigo" #codigo="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && codigo.invalid }" placeholder="Digite o codigo">
+              <div *ngIf="f.submitted && codigo.invalid" class="invalid-feedback">
+                  <div *ngIf="codigo.errors.required">Modelo é obrigatório</div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="nome">Nome</label>
+              <input type="text" [(ngModel)]="subestacao.nome" id="nome" name="nome" #nome="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && nome.invalid }" placeholder="Digite o nome">
+              <div *ngIf="f.submitted && nome.invalid" class="invalid-feedback">
+                  <div *ngIf="nome.errors.required">Cor é obrigatória</div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="latitude">latitude</label>
+              <input type="number" [(ngModel)]="subestacao.latitude" id="latitude" name="latitude" #latitude="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && latitude.invalid }" placeholder="Digite a latitude">
+              <div *ngIf="f.submitted && latitude.invalid" class="invalid-feedback">
+                  <div *ngIf="latitude.errors.required">Preço é obrigatório</div>
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="longitude">longitude</label>
+            <input type="number" [(ngModel)]="subestacao.longitude" id="longitude" name="longitude" #longitude="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && longitude.invalid }" placeholder="Digite a longitude">
+            <div *ngIf="f.submitted && longitude.invalid" class="invalid-feedback">
+                <div *ngIf="longitude.errors.required">Preço é obrigatório</div>
+            </div>
+        </div>
+          <button type="submit" class="btn btn-primary btn-add-car">Salvar</button>
+          <button type="reset" class="btn btn-secondary btn-add-car" (click)="cleanForm(f)">Cancelar</button>
+        </form>
+    </div>
+  </div>
+</div>
